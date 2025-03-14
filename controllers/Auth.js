@@ -34,7 +34,7 @@ exports.sendOTP = async (req, res) => {
     console.log(`otp--`, otp);
 
     // otp must be unique
-    const otpExist = await OTP.findOne({ otp });
+    const otpExist = await OTP.findOne({ otp: otp });
 
     while (otpExist) {
       otp = otpGenerator.generate(6, {
