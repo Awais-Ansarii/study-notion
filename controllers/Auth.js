@@ -204,7 +204,11 @@ exports.login = async (req, res) => {
     }
 
     // generate jwt token
-    const payload = { userId: user._id, email: user.email, role: user.role };
+    const payload = {
+      userId: user._id,
+      email: user.email,
+      accountType: user.accountType,
+    };
     const token = jwt.sign({ payload }, process.env.JWT_SECRET, {
       expiresIn: "2h",
     });
