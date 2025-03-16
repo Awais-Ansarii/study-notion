@@ -1,8 +1,8 @@
-const Tags = require("../models/Tags");
+const Categories = require("../models/Categories");
 const Course = require("../models/Course");
 const User = require("../models/User");
 
-exports.ceateTag = async (req, res) => {
+exports.ceateCategory = async (req, res) => {
   try {
     // fetch data from req.body
     const { name, description } = req.body;
@@ -16,31 +16,31 @@ exports.ceateTag = async (req, res) => {
     }
 
     // create tag entry in db
-    const tag = await Tags.create({
+    const Category = await Categories.create({
       name,
       description,
     });
 
-    console.log(`tag--`, tag);
+    console.log(`Category--`, Category);
 
     return res.status(200).json({
-      message: "Tag created successfully",
+      message: "Category created successfully",
       success: true,
     });
   } catch (err) {
-    console.log(`error in ceateTag--`, err.message);
+    console.log(`error in ceateCategory--`, err.message);
     return res.status(500).json({
-      message: "Internal server error in ceateTag",
+      message: "Internal server error in ceateCategory",
       success: false,
       error: err.message,
     });
   }
 };
 
-exports.getAllTags = async (req, res) => {
+exports.getAllCategories = async (req, res) => {
   try {
     // get all tag entry from db
-    const tags = await Tags.find(
+    const categories = await Categories.find(
       {},
       {
         name: true,
@@ -48,17 +48,17 @@ exports.getAllTags = async (req, res) => {
       }
     );
 
-    console.log(`All tag--`, tags);
+    console.log(`All Categories--`, categories);
 
     return res.status(200).json({
-      message: "All Tags fetched successfully",
+      message: "All Categories fetched successfully",
       success: true,
-      allTags: tags,
+      allCategories: categories,
     });
   } catch (err) {
-    console.log(`error in getAllTags--`, err.message);
+    console.log(`error in getAllCategories--`, err.message);
     return res.status(500).json({
-      message: "Internal server error in getAllTags",
+      message: "Internal server error in getAllCategories",
       success: false,
       error: err.message,
     });

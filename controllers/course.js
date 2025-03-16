@@ -3,7 +3,7 @@ const CourseProgress = require("../models/CourseProgress");
 const User = require("../models/User");
 const SubSection = require("../models/SubSection");
 const Section = require("../models/Section");
-const Tags = require("../models/Tags");
+const Categories = require("../models/Categories");
 const RatingAndReviews = require("../models/RatingAndReviews");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
@@ -34,7 +34,6 @@ exports.createCourse = async (req, res) => {
     const instructorDetails = await User.findById(userId);
     console.log(`instructorDetails--`, instructorDetails);
 
-
     // TODO: verify if user_id and instructor_id are same or different?
 
     if (!instructorDetails) {
@@ -44,12 +43,12 @@ exports.createCourse = async (req, res) => {
       });
     }
 
-    //check given tag is valid/exist in db
-    const tagDetail = await Tags.findById(tag);
-    console.log(`tagDetail--`, tagDetail);
-    if (!tagDetail) {
+    //check given Category is valid/exist in db
+    const CategoriesDetail = await Categories.findById(tag);
+    console.log(`CategoriesDetail--`, CategoriesDetail);
+    if (!CategoriesDetail) {
       return res.status(404).json({
-        message: "Tag not found",
+        message: "CategoriesDetail not found",
         success: false,
       });
     }
@@ -67,7 +66,7 @@ exports.createCourse = async (req, res) => {
       whatYouWillLearn,
       price,
       thumbnail: thumbnailImage.secure_url,
-      tag: tagDetail._id,
+      categoty: CategoriesDetail._id,
       instructor: instructorDetails._id,
     });
 
@@ -84,9 +83,9 @@ exports.createCourse = async (req, res) => {
       { new: true }
     );
 
-    // add this new course to tags schema
-    await Tags.findByIdAndUpdate(
-      { _id: tagDetail._id },
+    // add this new course to Categorys schema
+    await Categories.findByIdAndUpdate(
+      { _id: CategoriesDetail._id },
       {
         $push: {
           course: course._id,
@@ -120,7 +119,7 @@ exports.getAllCourses = async (req, res) => {
         instructor: true,
         price: true,
         thumbnail: true,
-        tag: true,
+        category: true,
         RatingAndReviews: true,
         studentEnrolled: true,
       }
