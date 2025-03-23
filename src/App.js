@@ -1,14 +1,15 @@
 import "./App.css";
-import {  Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import NotFound from "./components/common/NotFound";
+import {Route, Routes } from "react-router-dom";
+import Home from "./pages/Home"
+
 function App() {
-  return <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+  return (
+   <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<Home/>} />
     </Routes>
-  </div>;
+   </div>
+  );
 }
 
 export default App;
